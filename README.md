@@ -1,23 +1,16 @@
 The content below is an example project proposal / requirements document. Replace the text below the lines marked "__TODO__" with details specific to your project. Remove the "TODO" lines.
 
-(__TODO__: your project name)
-
-# Shoppy Shoperson 
+# ShapeEditor
 
 ## Overview
 
-(__TODO__: a brief one or two paragraph, high-level description of your project)
+Can't seem to remember your favorite color and shapes? Want to create and save a cool graphic?
 
-Remembering what to buy at the grocery store is waaaaay too difficult. Also, shopping for groceries when you're hungry leads to regrettable purchases. Sooo... that's where Shoppy Shoperson comes in!
-
-Shoppy Shoperson is a web app that will allow users to keep track of multiple grocery lists. Users can register and login. Once they're logged in, they can create or view their grocery list. For every list that they have, they can add items to the list or cross off items.
-
+ShapeEditor is a web app that will allow users to create cards filled with their favorite shape and color. Users can register and login. Once they're logged in, they can modify their favorite drawing by adding multiple shapes and colors, along with it's size and position.
 
 ## Data Model
 
-(__TODO__: a description of your application's data and their relationships to each other) 
-
-The application will store Users, Lists and Items
+The application will store Users, Cards and Items
 
 * users can have multiple lists (via references)
 * each list can have multiple items (by embedding)
@@ -30,19 +23,21 @@ An Example User:
 {
   username: "shannonshopper",
   hash: // a password hash,
-  lists: // an array of references to List documents
+  Cards: // an array of references to card documents
 }
 ```
 
-An Example List with Embedded Items:
+An Example Card with Embedded Shapes:
 
 ```javascript
 {
   user: // a reference to a User object
-  name: "Breakfast foods",
-  items: [
-    { name: "pancakes", quantity: "9876", checked: false},
-    { name: "ramen", quantity: "2", checked: true},
+  name: "Design 1",
+  background-color: "white",
+  //colors are in hex
+  shapes: [
+    { type: "square", color: "000000", xpos: "50", ypos: "50"},
+    { type: "cirlce", color: "0F3A5C", xpos: "20", ypos: "70"},
   ],
   createdAt: // timestamp
 }
