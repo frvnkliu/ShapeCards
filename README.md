@@ -12,8 +12,8 @@ ShapeEditor is a web app that will allow users to create cards filled with their
 
 The application will store Users, Cards and Items
 
-* users can have multiple lists (via references)
-* each list can have multiple items (by embedding)
+* users can have multiple cards (via references)
+* each card can have multiple shapes (by embedding)
 
 (__TODO__: sample documents)
 
