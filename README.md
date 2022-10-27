@@ -1,6 +1,6 @@
 The content below is an example project proposal / requirements document. Replace the text below the lines marked "__TODO__" with details specific to your project. Remove the "TODO" lines.
 
-# ShapeEditor
+# ShapeCards
 
 ## Overview
 
@@ -14,16 +14,16 @@ The application will store Users, Cards and Items
 
 * users can have multiple cards (via references)
 * each card can have multiple shapes (by embedding)
-
-(__TODO__: sample documents)
+* card can be used as profile pic
 
 An Example User:
 
 ```javascript
 {
-  username: "shannonshopper",
+  username: "bobRoss",
   hash: // a password hash,
   Cards: // an array of references to card documents
+  profilePicIndex: //index of card to be used as profile picture
 }
 ```
 
@@ -36,8 +36,8 @@ An Example Card with Embedded Shapes:
   background-color: "white",
   //colors are in hex
   shapes: [
-    { type: "square", color: "000000", xpos: "50", ypos: "50"},
-    { type: "cirlce", color: "0F3A5C", xpos: "20", ypos: "70"},
+    { type: "square", color: "000000", size: "30", xpos: "50", ypos: "50"},
+    { type: "cirlce", color: "0F3A5C", size: "17" , xpos: "20", ypos: "70"},
   ],
   createdAt: // timestamp
 }
@@ -50,36 +50,33 @@ An Example Card with Embedded Shapes:
 
 ## Wireframes
 
-(__TODO__: wireframes for all of the pages on your site; they can be as simple as photos of drawings or you can use a tool like Balsamiq, Omnigraffle, etc.)
+/cards - profile page that shows all cards
 
-/list/create - page for creating a new shopping list
+![list create](documentation/profile_wf.png)
 
-![list create](documentation/list-create.png)
+/cards/edit - page for creating and editing cards
 
-/list - page for showing all shopping lists
+![list](documentation/editor_wf.png)
 
-![list](documentation/list.png)
+/login - page for logging in
 
-/list/slug - page for showing specific shopping list
+![list](documentation/login_wf.png)
 
-![list](documentation/list-slug.png)
+/register - page for registering
+![list](documentation/register_wf.png)
 
 ## Site map
 
-(__TODO__: draw out a site map that shows how pages are related to each other)
-
-Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia/commons/2/20/Sitemap_google.jpg), but you can create one without the screenshots, drop shadows, etc. ... just names of pages and where they flow to.
+![sitemap](documentation/sitempa.png)
 
 ## User Stories or Use Cases
 
-(__TODO__: write out how your application will be used through [user stories](http://en.wikipedia.org/wiki/User_story#Format) and / or [use cases](https://en.wikipedia.org/wiki/Use_case))
-
 1. as non-registered user, I can register a new account with the site
 2. as a user, I can log in to the site
-3. as a user, I can create a new grocery list
-4. as a user, I can view all of the grocery lists I've created in a single list
-5. as a user, I can add items to an existing grocery list
-6. as a user, I can cross off items in an existing grocery list
+3. as a user, I can create a new card
+4. as a user, I can view all of my cards in a list
+5. as a user, I can edit an existing card
+6. as a user, I can set a profile pic using an existing card
 
 ## Research Topics
 
@@ -88,15 +85,14 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 * (5 points) Integrate user authentication
     * I'm going to be using passport for user authentication
     * And account has been made for testing; I'll email you the password
-    * see <code>cs.nyu.edu/~jversoza/ait-final/register</code> for register page
-    * see <code>cs.nyu.edu/~jversoza/ait-final/login</code> for login page
-* (4 points) Perform client side form validation using a JavaScript library
-    * see <code>cs.nyu.edu/~jversoza/ait-final/my-form</code>
-    * if you put in a number that's greater than 5, an error message will appear in the dom
-* (5 points) vue.js
-    * used vue.js as the frontend framework; it's a challenging library to learn, so I've assigned it 5 points
+* (3 points) Canvas API
+    * HTML/Javascript to actually create the cards using the canvas library
+* (2 points) Tailwind
+    * CSS framwework
+* (6 points) Vue.js
+    * 6 points as listed in the documentation
 
-10 points total out of 8 required points (___TODO__: addtional points will __not__ count for extra credit)
+16 points total out of 8 required points
 
 
 ## [Link to Initial Main Project File](app.mjs) 
