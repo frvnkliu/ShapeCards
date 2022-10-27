@@ -36,8 +36,8 @@ An Example Card with Embedded Shapes:
   background-color: "white",
   //colors are in hex
   shapes: [
-    { type: "square", color: "000000", size: "30", xpos: "50", ypos: "50"},
-    { type: "cirlce", color: "0F3A5C", size: "17" , xpos: "20", ypos: "70"},
+    { type: "square", color: "000000", size: "30", pos: {x: "50", y: "50"}},
+    { type: "circle", color: "0F3A5C", size: "17" , pos: {x: "20", y: "70"}},
   ],
   createdAt: // timestamp
 }
@@ -67,7 +67,7 @@ An Example Card with Embedded Shapes:
 
 ## Site map
 
-![sitemap](documentation/sitempa.png)
+![sitemap](documentation/sitemap.png)
 
 ## User Stories or Use Cases
 
