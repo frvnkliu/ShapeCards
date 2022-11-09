@@ -7,6 +7,8 @@ import fs from 'fs';
 import path from 'path';
 import url from 'url';
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
+
+
 let dbconf;
 if (process.env.NODE_ENV === 'PRODUCTION') {
  // if we're in PRODUCTION mode, then read the configration from a file
@@ -20,7 +22,7 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
  dbconf = conf.dbconf;
 } else {
  // if we're not in PRODUCTIONmihjse  mode, then use
- dbconf = 'mongodb://localhost/fl2211';
+ dbconf = 'mongodb://localhost/final-project';
 }
 
 mongoose.connect(dbconf);

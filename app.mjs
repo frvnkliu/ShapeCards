@@ -11,10 +11,30 @@ const __dirname = path.dirname(__filename);
 app.set('view engine', 'hbs');
 
 const User = mongoose.model('User');
-const Article = mongoose.model('Shape');
+const Shape = mongoose.model('Shape');
 const Card = mongoose.model('Card');
 
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+}));
+
+//Middlware
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+  });
+  
+  // logging
+  app.use((req, res, next) => {
+    console.log(req.method, req.path, req.body);
+    next();
+  });
+//
+
 app.get('/', (req,res)=>{
+    //res.render('shapeform',{});
     req.redirect = ('/shapeform');
     //req.redirect = ('/cards');
 });
@@ -24,7 +44,7 @@ app.get('/shapeform', (req,res)=>{
 });
 
 app.post('/shapeform', (req, res) => {
-    //
+    console.log(req.body);
     const newShape = new Shape({type: req.body.shape, pos: {x: req.body.x, y: req.body.y} ,  color: {r: req.body.x, g: req.body.x, b: req.body.y}});
     newShape.save(function(err){
         if(err){
@@ -35,8 +55,6 @@ app.post('/shapeform', (req, res) => {
         }
     });
 });
-
-
 
 app.get('/login', (req,res)=>{
     res.render('login', {});
