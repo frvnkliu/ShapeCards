@@ -52,10 +52,10 @@ app.post('/shapeform', (req, res) => {
     const newShape = new Shape({type: req.body.shape, pos: {x: req.body.x, y: req.body.y} ,  color: {r: req.body.x, g: req.body.x, b: req.body.y}});
     newShape.save(function(err){
         if(err){
-        console.log(err);
-            res.render('/shapeform', {}); 
+            console.log(err);
+            res.render('shapeform', {error: err}); 
         }else{
-            res.redirect('/');
+            res.redirect('shapeform');
         }
     });
 });
