@@ -14,6 +14,10 @@ const User = mongoose.model('User');
 const Shape = mongoose.model('Shape');
 const Card = mongoose.model('Card');
 
+app.use(express.static(path.join(__dirname, '/')));
+
+app.use(express.urlencoded({ extended: false }));
+
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
@@ -49,7 +53,7 @@ app.post('/shapeform', (req, res) => {
     newShape.save(function(err){
         if(err){
         console.log(err);
-            res.render('/shapeform', {message: 'Error saving shape: ' + err}); 
+            res.render('/shapeform', {}); 
         }else{
             res.redirect('/');
         }
