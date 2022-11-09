@@ -25,21 +25,25 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
 
 mongoose.connect(dbconf);
 
-const Shape = new mongoose.Schema({
+const ShapeSchema = new mongoose.Schema({
     type: String,
     pos: {x: Number, y: Number},
     color: {r: Number, g: Number, b: Number}
 });
 
-const Card = new mongoose.Schema({
+const CardSchema = new mongoose.Schema({
 	name: String,
 	backgroundcolor: {r: Number, g: Number, b: Number},
-	shapes: [Shape]
+	shapes: [ShapeSchema]
 });
 
-const User = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     username: String,
     hash: String,
-    Cards: [Card],
+    Cards: [CardSchema],
     profilePicIndex: Number
 });
+
+mongoose.model('User', UserSchema);
+mongoose.model('Card', CardSchema);
+mongoose.model('Shape', ShapeSchema);
