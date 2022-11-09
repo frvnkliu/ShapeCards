@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
  const conf = JSON.parse(data);
  dbconf = conf.dbconf;
 } else {
- // if we're not in PRODUCTION mode, then use
+ // if we're not in PRODUCTIONmihjse  mode, then use
  dbconf = 'mongodb://localhost/fl2211';
 }
 
