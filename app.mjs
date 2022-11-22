@@ -4,12 +4,10 @@ import mongoose from 'mongoose';
 import session from 'express-session';
 import { fileURLToPath } from 'url';
 import './db.mjs';
-import { createReadStream } from 'fs';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.set('view engine', 'hbs');
 
 const User = mongoose.model('User');
 const Shape = mongoose.model('Shape');
@@ -45,7 +43,9 @@ app.get('/', (req,res)=>{
 });
 
 app.get('/cards', (req,res)=>{
-    res.sendFile(__dirname + "public/cards.html");
+    Card.find({}).sort('-createdAt').exec((err, cards) => {
+        res.json(cards);
+    }); 
 })
 
 app.post('/api/shape', (req, res) => {
