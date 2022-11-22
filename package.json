@@ -22,6 +22,7 @@
     "hbs": "^4.2.0",
     "mongoose": "^6.7.0",
     "mongoose-slug-plugin": "^2.1.0",
-    "mongoose-url-slugs": "^1.0.2"
+    "mongoose-url-slugs": "^1.0.2",
+    "vue": "^3.2.45"
   }
 }

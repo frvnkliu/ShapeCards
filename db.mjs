@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 import mongooseSlugPlugin from 'mongoose-slug-plugin';
 
 
@@ -27,24 +27,33 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
 
 mongoose.connect(dbconf);
 
+const colorSchema = new mongoose.Schema({
+    r: Number,
+    g: Number,
+    b: Number
+})
+
 const ShapeSchema = new mongoose.Schema({
     type: String,
     pos: {x: Number, y: Number},
-    color: {r: Number, g: Number, b: Number}
+    color: colorSchema
 });
 
 const CardSchema = new mongoose.Schema({
-	name: String,
-	backgroundcolor: {r: Number, g: Number, b: Number},
+	userId: {type: mongoose.Types.ObjectId}, 
+    name: {type: String},
+	backgroundcolor: colorSchema,
 	shapes: [ShapeSchema]
-});
+}, { timestamps: true });
 
 const UserSchema = new mongoose.Schema({
-    username: String,
-    hash: String,
-    Cards: [CardSchema],
+    username: {type: String, required: true},
+    hash: {type: String, required: true},
     profilePicIndex: Number
 });
+
+
+CardSchema.index({userId: 1, name: 1}, {unique: true});
 
 mongoose.model('User', UserSchema);
 mongoose.model('Card', CardSchema);
