@@ -1,6 +1,4 @@
 import mongoose, { Schema } from 'mongoose'
-import mongooseSlugPlugin from 'mongoose-slug-plugin';
-
 
 // is the environment variable, NODE_ENV, set to PRODUCTION? 
 import fs from 'fs';

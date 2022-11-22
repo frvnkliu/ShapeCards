@@ -41,6 +41,7 @@ startButton.addEventListener('click', function(event){
     }
 
     this.parentElement.classList.add('hidden');
+    document.getElementById('cardEditor').classList.remove('hidden');
     document.getElementById('t').classList.add('hidden');
     const name = this.parentElement.querySelector('input').value;
     document.querySelector('#cardEditor>h2').innerHTML = `Editing Card ${name}`

@@ -31,7 +31,7 @@ An Example Card with Embedded Shapes:
 
 ```javascript
 {
-  user: // a reference to a User object
+  userId: // a reference to a User object
   name: "Design 1",
   background-color: "white",
   //colors are in hex
@@ -89,10 +89,8 @@ An Example Card with Embedded Shapes:
     * HTML/Javascript to actually create the cards using the canvas library
 * (2 points) Tailwind
     * CSS framwework
-* (6 points) Vue.js
-    * 6 points as listed in the documentation
-
-16 points total out of 8 required points
+    
+10 points total out of 8 required points
 
 
 ## [Link to Initial Main Project File](app.mjs) 
