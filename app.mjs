@@ -4,6 +4,9 @@ import mongoose from 'mongoose';
 import session from 'express-session';
 import { fileURLToPath } from 'url';
 import './db.mjs';
+import passport from 'passport';
+import connectEnsureLogin from 'connect-ensure-login';
+
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -69,7 +72,7 @@ app.post('/api/shape', (req, res) => {
     });
 });
 
-app.post('/api/card', (req, res)=>{
+app.post('/api/cards', (req, res)=>{
     console.log(req.body);
     const userId = '637c773b4d1612b0bc651fff';
     req.body.userId = userId;
@@ -79,10 +82,19 @@ app.post('/api/card', (req, res)=>{
     });
 });
 
+app.get('/api/cards', (req, res)=>{
+    //implement getting userId
+    const userId = '637c773b4d1612b0bc651fff';
+    Card.find({userId: userId}).sort('-createdAt').exec((err, cards) => {
+        res.json(cards);
+    }); 
+});
 
 app.get('/api/card', (req, res)=>{
-    Result.find().sort('-createdAt').limit(5).exec((err, result) => {
-        res.json(result);
+    const name = req.query.name;
+    const userId = '637c773b4d1612b0bc651fff';
+    Card.findOne({userId: userId, name: name}).exec((err, cards) => {
+        res.json(cards);
     }); 
 });
 

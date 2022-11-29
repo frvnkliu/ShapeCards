@@ -1,4 +1,6 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Schema } from 'mongoose';
+
+import passportLocalMongoose from 'passport-local-mongoose';
 
 // is the environment variable, NODE_ENV, set to PRODUCTION? 
 import fs from 'fs';
@@ -46,11 +48,11 @@ const CardSchema = new mongoose.Schema({
 
 const UserSchema = new mongoose.Schema({
     username: {type: String, required: true},
-    hash: {type: String, required: true},
+    password: {type: String, required: true},
     profilePicIndex: Number
 });
 
-
+UserSchema.plugin(passportLocalMongoose);
 CardSchema.index({userId: 1, name: 1}, {unique: true});
 
 mongoose.model('User', UserSchema);

@@ -3,30 +3,61 @@ const shapeButton = document.querySelector('#shapeEditor>form>.submit');
 const startButton = document.querySelector('button');
 const canvas = document.getElementById('editedCard');
 const ctx = canvas.getContext("2d");
+const cards = document.getElementById('cards');
 let name;
-function drawShape(shape){
-    ctx.fillStyle = `rgb(${shape.color.r}, ${shape.color.g}, ${shape.color.b})`;
-    switch(shape.type){
-        case 'Square':
-            ctx.fillRect(shape.pos.x, shape.pos.y, 20, 20);
-            break;
-        case 'Circle':
-            ctx.beginPath();
-            ctx.arc(shape.pos.x, shape.pos.y, 15, 0, 2 * Math.PI);
-            ctx.fill();
-            break;
-        case 'Triangle':
-            ctx.beginPath();
-            ctx.moveTo(shape.pos.x, shape.pos.y);
-            ctx.lineTo(+shape.pos.x +20, shape.pos.y);
-            ctx.lineTo(shape.pos.x, +shape.pos.y +20);
-            ctx.fill();
-            break;
-    }
+
+
+function cardOnClick(event){
+    name = this.parentElement.querySelector('p').innerHTML;
+    cards.classList.add('hidden');
+    document.getElementById('cardEditor').classList.remove('hidden');
+    document.querySelector('#cardEditor>h2').innerHTML = `Editing Card ${name}`;
+
+    const req = new XMLHttpRequest();
+    const url = `api/card?name=${name}`;
+    req.open('GET', url);
+    req.addEventListener('load', function(evt){
+        console.log(req.status, req.responseText);
+        if(req.status >= 200 && req.status < 300) {
+            const cardInfo = JSON.parse(req.responseText);
+            render(cardInfo, canvas);
+        }
+    });
+    req.send();
 }
 
-function initialize(){
-    //toDO
+
+function getCards(){
+    //AJAX to retrieve cards
+    const req = new XMLHttpRequest();
+    const url = 'api/cards';
+    req.open('GET', url);
+    req.addEventListener('load', function(evt){
+        console.log(req.status, req.responseText);
+        if(req.status >= 200 && req.status < 300) {
+            const cardList  = JSON.parse(req.responseText); 
+            for(const cardInfo of cardList) {
+                const cardDiv = document.createElement('div');
+                cardDiv.classList.add('mx-5');
+                const cardCanvas = document.createElement('canvas');
+                cardCanvas.classList.add('block');
+                cardCanvas.width = "300";
+                cardCanvas.height = "500";
+                const label = document.createElement('p');
+                label.innerHTML = cardInfo.name;
+                const button = document.createElement('button');
+                button.innerHTML = "Edit Card";
+                button.addEventListener('click', cardOnClick);
+                cardDiv.append(cardCanvas);
+                cardDiv.append(label);
+                cardDiv.append(button);
+                cards.append(cardDiv);
+                console.log(cardInfo);
+                render(cardInfo, cardCanvas);
+            }
+        }
+    });
+    req.send();
 }
 
 startButton.addEventListener('click', function(event){
@@ -40,10 +71,9 @@ startButton.addEventListener('click', function(event){
         }
     }
 
-    this.parentElement.classList.add('hidden');
+    cards.classList.add('hidden');
     document.getElementById('cardEditor').classList.remove('hidden');
-    document.getElementById('t').classList.add('hidden');
-    const name = this.parentElement.querySelector('input').value;
+    name = this.parentElement.querySelector('input').value;
     document.querySelector('#cardEditor>h2').innerHTML = `Editing Card ${name}`
     const [r,g,b] = formValues;
     console.log(`rgb(${r}, ${g}, ${b})`);
@@ -51,7 +81,7 @@ startButton.addEventListener('click', function(event){
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const req = new XMLHttpRequest();
-    req.open('POST', '/api/card', true);
+    req.open('POST', '/api/cards', true);
     req.setRequestHeader('Content-Type', "application/json;charset=UTF-8");
     req.send(JSON.stringify({name: name, backgroundcolor: {r: r, g: g, b: b}, shapes: []}));
 });
@@ -69,12 +99,13 @@ shapeButton.addEventListener('click', function(event){
         return;
     }
     document.getElementById('shapeError').innerHTML = "";
-    drawShape(shape);
+    drawShape(shape, ctx);
     
     const req = new XMLHttpRequest();
     req.open('POST', '/api/shape', true);
     req.setRequestHeader('Content-Type', "application/json;charset=UTF-8");
-    req.send(JSON.stringify({cardName: document.querySelector('div input').value, shape: shape}));
-    form.className = 'hide';
+    req.send(JSON.stringify({cardName: name, shape: shape}));
+    //form.className = 'hide';
 });
 
+getCards();
