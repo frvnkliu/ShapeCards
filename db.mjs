@@ -40,8 +40,8 @@ const ShapeSchema = new mongoose.Schema({
 });
 
 const CardSchema = new mongoose.Schema({
-	userId: {type: mongoose.Types.ObjectId}, 
-    name: {type: String},
+	userId: {type: mongoose.Types.ObjectId, required: true}, 
+    name: {type: String, required: true},
 	backgroundcolor: colorSchema,
 	shapes: [ShapeSchema]
 }, { timestamps: true });

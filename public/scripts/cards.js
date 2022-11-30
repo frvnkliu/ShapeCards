@@ -2,7 +2,6 @@
 
 //function to drawShape
 function drawShape(shape, ctx){
-    console.log(shape);
     ctx.fillStyle = `rgb(${shape.color.r}, ${shape.color.g}, ${shape.color.b})`;
     switch(shape.type){
         case 'Square':
@@ -26,11 +25,8 @@ function drawShape(shape, ctx){
 //Card is the object returned by the database, canvas is the html element
 function render(cardInfo, canvas){
     const ctx = canvas.getContext("2d");
-    console.log(cardInfo);
     const bg = cardInfo.backgroundcolor;
-    console.log(bg);
     ctx.fillStyle = `rgb(${bg.r}, ${bg.g}, ${bg.b})`;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    console.log(cardInfo.shapes[0]);
     cardInfo.shapes.forEach(shape => drawShape(shape,ctx));
 }

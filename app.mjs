@@ -78,7 +78,12 @@ app.post('/api/cards', (req, res)=>{
     req.body.userId = userId;
     const newCard = new Card(req.body);
     newCard.save(function(err){
-        if(err) console.log(err);
+        if(err){
+            console.log(err);
+            res.status(400).send('Duplicate Name');
+        } else{
+            res.status(200).send('Okay');
+        }
     });
 });
 
@@ -95,6 +100,18 @@ app.get('/api/card', (req, res)=>{
     const userId = '637c773b4d1612b0bc651fff';
     Card.findOne({userId: userId, name: name}).exec((err, cards) => {
         res.json(cards);
+    }); 
+});
+
+app.delete('/api/card', (req, res)=>{
+    const name = req.query.name;
+    const userId = '637c773b4d1612b0bc651fff';
+    Card.findOneAndDelete({userId: userId, name: name}).exec((err) => {
+        if(err){
+            res.status(404).send('not found');
+        }else{
+            res.status(200).send('deleted');
+        }
     }); 
 });
 

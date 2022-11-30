@@ -11,7 +11,7 @@
 
     <h3 class = "text-1xl font-bold mt-5 mb-2 text-center">Cards</h3>
     <div id = "cards" class = "text-center inline-flex flex-wrap justify-center">
-        <div id = "newCardForm" class="text-center border-2" style = "width: 300px;height:500px">
+        <div id = "newCardForm" class="text-center border-2 mx-2 my-2" style = "width: 300px;height:500px">
             <h3 class = "text-1xl font-bold mt-0 mb-2 text-center">Create New Card</h3>
             <label>Card Name:
             <input type="text" value="", class = "border-2 my-3">
@@ -39,14 +39,13 @@
         </div>
     </div>
 
-    <div id = "cardEditor" class = "border-2 bg-zinc-400 hidden inline-flex">
+    <div id = "cardEditor" class = "border-2 bg-zinc-400 hidden text-center">
         <h2 class = "text-2xl font-bold mt-0 mb-6 text-center"></h2>
-        <canvas id = "editedCard" width = "300" height = "500" class = "border-2 inline-flex">
-        </canvas>
-        <div class = "inline-flex">
-            <div id = "shapeEditor">
+        <div class = "flex justify-center text-center">
+            <canvas id = "editedCard" width = "300" height = "500" class = "border-2"></canvas>
+            <div id = "shapeEditor" style = "width: 304px;height:504px" class = "border-2 bg-zinc-400 p-1" >
                 <h3>Add a Shape!</h3>
-                <form method="POST" action="" class = "border-2 bg-zinc-400 p-1">
+                <form method="POST" action=""3>
                     <label>Shape
                     <select>
                         <option>Square</option>
@@ -85,6 +84,7 @@
                 </form>
             </div>
         </div>
+        <button class = "submit bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 mt-3 rounded">Return</button>
     </div>
 </body>
 <script type="text/javascript" src="scripts/cards.js"></script>
