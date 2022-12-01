@@ -1,5 +1,5 @@
 # ShapeCards
-### Hosted on: http://linserv1.cims.nyu.edu:21207
+### Hosted on: https://linserv1.cims.nyu.edu:20000
 ## Overview
 
 Can't seem to remember your favorite color and shapes? Want to create and save a cool graphic?
@@ -79,8 +79,8 @@ Card Editor
 * (5 points) Integrate user authentication
     * I'm going to be using passport for user authentication
     * You can simply register a new account
-    * See http://linserv1.cims.nyu.edu:21207/register for registration page
-    * See http://linserv1.cims.nyu.edu:21207/login for login page
+    * See https://linserv1.cims.nyu.edu:20000/register for registration page
+    * See https://linserv1.cims.nyu.edu:20000/login for login page
 * (3 points) Canvas API
     * HTML/Javascript to actually create the cards using the canvas library
 * (2 points) Tailwind
