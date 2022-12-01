@@ -27,12 +27,14 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
 
 mongoose.connect(dbconf);
 
+//New Schema for Colors
 const colorSchema = new mongoose.Schema({
     r: Number,
     g: Number,
     b: Number
 })
 
+//New Schema for Shapes
 const ShapeSchema = new mongoose.Schema({
     type: String,
     pos: {x: Number, y: Number},

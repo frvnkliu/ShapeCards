@@ -1,14 +1,12 @@
-The content below is an example project proposal / requirements document. Replace the text below the lines marked "__TODO__" with details specific to your project. Remove the "TODO" lines.
-
 # ShapeCards
 
 ## Overview
 
 Can't seem to remember your favorite color and shapes? Want to create and save a cool graphic?
 
-ShapeEditor is a web app that will allow users to create cards filled with their favorite shape and color. Users can register and login. Once they're logged in, they can modify their favorite drawing by adding multiple shapes and colors, along with its position.
+ShapeEditor is a web app that will allow users to create cards filled with their favorite shape and color. Users can register and login. Once they're logged in, they can modify their cards by adding multiple shapes and colors, along with its position.
 
-ShapeEditor is like the new Photoshop, except you can't change the background color, can't edit previously added shapes, or upload images to edit.
+ShapeEditor is like the new Photoshop, except you can't change the background color, can't edit previously added shapes, upload images to edit, or use any other functional tool that Photoshop provides. (Basically it's a better Photoshop)
 
 ## Data Model
 
@@ -39,31 +37,30 @@ An Example Card with Embedded Shapes:
     { type: "square", pos: {x: "50", y: "50"}, color: {r: "127", g: "127", b: "127"}},
     { type: "circle", pos: {x: "20", y: "70"}, color: {r: "127", g: "127", b: "127"}},
   ],
+  size: "27",
   createdAt: // timestamp
 }
 ```
 
-
-## [Link to Commented First Draft Schema](db.mjs) 
-
-(__TODO__: create a first draft of your Schemas in db.mjs and link to it)
+## [Link to Commented Schema](db.mjs) 
 
 ## Wireframes
-
-/cards - profile page that shows all cards
-
-![list create](documentation/profile_wf.png)
-
-/cards/edit - page for creating and editing cards
-
-![list](documentation/editor_wf.png)
+/ - home page with hyperlinks to profile, login, and registration pages
+![home page "/"](documentation/index.png)
 
 /login - page for logging in
 
-![list](documentation/login_wf.png)
+![list](documentation/login.png)
 
 /register - page for registering
-![list](documentation/register_wf.png)
+![list](documentation/register.png)
+
+/cards - profile page that shows all cards as well as an editor
+
+View Cards
+![profile page "/cards"](documentation/profile.png)
+Card Editor
+![card editor "/cards"](documentation/cardEditor.png)
 
 ## Site map
 
@@ -73,18 +70,17 @@ An Example Card with Embedded Shapes:
 
 1. as non-registered user, I can register a new account with the site
 2. as a user, I can log in to the site
-3. as a user, I can create a new card
-4. as a user, I can view all of my cards in a list
+3. as a user, I can view all of my cards in a list
+4. as a user, I can create a new card
 5. as a user, I can edit an existing card
-6. as a user, I can set a profile pic using an existing card
+5. as a user, I can delete an existing card
 
 ## Research Topics
-
-(__TODO__: the research topics that you're planning on working on along with their point values... and the total points of research topics listed)
-
 * (5 points) Integrate user authentication
     * I'm going to be using passport for user authentication
-    * And account has been made for testing; I'll email you the password
+    * You can simply register a new account
+    * See http://linserv1.cims.nyu.edu:21207/register for registration page
+    * http://linserv1.cims.nyu.edu:21207/login for login page
 * (3 points) Canvas API
     * HTML/Javascript to actually create the cards using the canvas library
 * (2 points) Tailwind
@@ -93,15 +89,13 @@ An Example Card with Embedded Shapes:
 10 points total out of 8 required points
 
 
-## [Link to Initial Main Project File](app.mjs) 
-
-(__TODO__: create a skeleton Express application with a package.json, app.mjs, views folder, etc. ... and link to your initial app.mjs)
+## [Link to Main Project Server File](app.mjs) 
 
 ## Annotations / References Used
 
 (__TODO__: list any tutorials/references/etc. that you've based your code off of)
 
-1. [passport.js authentication docs](http://passportjs.org/docs) - (add link to source code that was based on this)
-2. [tutorial on vue.js](https://vuejs.org/v2/guide/) - (add link to source code that was based on this)
-3. https://heynode.com/tutorial/authenticate-users-node-expressjs-and-passportjs/
+1. [passport.js authentication docs](http://passportjs.org/docs)
+3. [passport.js express tutorial](https://heynode.com/tutorial/authenticate-users-node-expressjs-and-passportjs/)
+3. [tailwind documentation](https://tailwindcss.com/docs)
 
