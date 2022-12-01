@@ -3,6 +3,7 @@
 //function to drawShape
 function drawShape(shape, ctx){
     ctx.fillStyle = `rgb(${shape.color.r}, ${shape.color.g}, ${shape.color.b})`;
+    //Determine which shape to draw
     switch(shape.type){
         case 'Square':
             ctx.fillRect(shape.pos.x, shape.pos.y, 20, 20);

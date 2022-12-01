@@ -7,13 +7,11 @@ import './db.mjs';
 import passport from 'passport';
 import connectEnsureLogin from 'connect-ensure-login';
 
-
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const User = mongoose.model('User');
-const Shape = mongoose.model('Shape');
 const Card = mongoose.model('Card');
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -21,12 +19,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 
 app.use(session({
-    secret: 'keyboard cat',
+    secret: 'pineapple cow',
     resave: false,
     saveUninitialized: true,
+    //cookie: { maxAge: 24*60 * 60 * 1000 } // uncomment for 24 hour cookies
 }));
 
 app.use(express.json());
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(User.createStrategy());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 
 //Middleware
 app.use((req, res, next) => {
@@ -35,31 +43,51 @@ app.use((req, res, next) => {
   });
   
 // logging
-app.use((req, res, next) => {
-console.log(req.method, req.path, req.body);
-next();
-});
+/*app.use((req, res, next) => {
+    console.log(req.method, req.path, req.body);
+    next();
+});*/
 //
 
-app.get('/', (req,res)=>{
-    res.sendFile(__dirname + "public/index.html");
+app.get('/cards', connectEnsureLogin.ensureLoggedIn(), (req,res)=>{
+    res.sendFile(__dirname + "/public/cards.html");
 });
 
-app.get('/cards', (req,res)=>{
-    Card.find({}).sort('-createdAt').exec((err, cards) => {
-        res.json(cards);
-    }); 
-})
+app.get('/login', (req,res)=>{
+    res.sendFile(__dirname + "/public/login.html");
+});
 
-app.post('/api/shape', (req, res) => {
-    //will implement session stuff later
-    Card.findOne({userId: '637c773b4d1612b0bc651fff', name: req.body.cardName}, (err, card)=>{
+app.post('/login', passport.authenticate('local', { failureRedirect: '/login',  failureMessage: true }),  function(req, res) {
+    res.redirect('/cards');
+});
+
+app.get('/register', (req,res)=>{
+    //static file serve
+    res.sendFile(__dirname + "/public/register.html");
+});
+
+app.post('/register', (req,res)=>{
+    //Registers user using passport
+    User.register({ username: req.body.username, active: false }, req.body.password, (err)=>{
+        if(err.name !== 'UserExistsError') res.redirect('/register');
+        else res.redirect('/login');
+    });
+});
+
+app.get('/logout', function(req, res) {
+    //passport
+    req.logout((err) =>{
+        res.redirect('/login');
+    });
+});
+
+app.post('/api/shape', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
+    //Find Card to add shape to it
+    Card.findOne({userId: req.user._id, name: req.body.cardName}, (err, card)=>{
         if(err){
             console.log(err);
         }else if(card){
-            //const newShape = new Shape({type: req.body.shape, pos: {x: req.body.x, y: req.body.y} ,  color: {r: req.body.x, g: req.body.x, b: req.body.y}});
             const newShape = req.body.shape;
-            //console.log("hello");
             card.shapes.push(newShape);
             card.save(function(err){
                 if(err){
@@ -72,10 +100,11 @@ app.post('/api/shape', (req, res) => {
     });
 });
 
-app.post('/api/cards', (req, res)=>{
-    console.log(req.body);
-    const userId = '637c773b4d1612b0bc651fff';
+app.post('/api/cards', connectEnsureLogin.ensureLoggedIn(), (req, res)=>{
+    //Adds new card to user
+    const userId = req.user._id;
     req.body.userId = userId;
+    //mongoose to save new Card
     const newCard = new Card(req.body);
     newCard.save(function(err){
         if(err){
@@ -87,25 +116,27 @@ app.post('/api/cards', (req, res)=>{
     });
 });
 
-app.get('/api/cards', (req, res)=>{
+app.get('/api/cards', connectEnsureLogin.ensureLoggedIn(), (req, res)=>{
     //implement getting userId
-    const userId = '637c773b4d1612b0bc651fff';
+    const userId = req.user._id;
     Card.find({userId: userId}).sort('-createdAt').exec((err, cards) => {
         res.json(cards);
     }); 
 });
 
-app.get('/api/card', (req, res)=>{
+app.get('/api/card', connectEnsureLogin.ensureLoggedIn(), (req, res)=>{
+    //Find a single card given a name in the query
     const name = req.query.name;
-    const userId = '637c773b4d1612b0bc651fff';
+    const userId = req.user._id;
     Card.findOne({userId: userId, name: name}).exec((err, cards) => {
         res.json(cards);
     }); 
 });
 
-app.delete('/api/card', (req, res)=>{
+app.delete('/api/card', connectEnsureLogin.ensureLoggedIn(), (req, res)=>{
+    //Deletes a single card given a name in the query
     const name = req.query.name;
-    const userId = '637c773b4d1612b0bc651fff';
+    const userId = req.user._id;
     Card.findOneAndDelete({userId: userId, name: name}).exec((err) => {
         if(err){
             res.status(404).send('not found');
@@ -113,9 +144,6 @@ app.delete('/api/card', (req, res)=>{
             res.status(200).send('deleted');
         }
     }); 
-});
-
-app.get('/login', (req,res)=>{
 });
 
 app.listen(process.env.PORT || 3000);

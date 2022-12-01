@@ -47,9 +47,8 @@ const CardSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 const UserSchema = new mongoose.Schema({
-    username: {type: String, required: true},
-    password: {type: String, required: true},
-    profilePicIndex: Number
+    username: String,
+    password: String
 });
 
 UserSchema.plugin(passportLocalMongoose);

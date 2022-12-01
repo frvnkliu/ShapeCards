@@ -1,15 +1,98 @@
 <!doctype html>
 <html>
 <head>
-    <title>Shape Cards</title>
+    <title>Your Shape Cards</title>
     <link rel="stylesheet" href="style/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
     <meta charset="utf-8" /> 
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <h1>Shape Cards:</h1>
-    <div id = "cards" class = "">
+    <h1 class = "text-5xl font-bold mt-2 mb-2 text-center ">Shape Cards</h1>
+
+
+    <div class = "text-center">
+        <a href = "/logout" class = "text-1xl font-bold mt-2 mb-2 text-center hover:text-red-700 underline">Logout</a><br>
+    </div>
+    <div>
+        <h3 class = "text-3xl font-bold mt-5 mb-2 text-center">Your Cards</h3>
+        <div id = "cards" class = "text-center inline-flex flex-wrap justify-center">
+            <div id = "newCardForm" class="text-center border-2 mx-2 my-2" style = "width: 300px;height:500px">
+                <h3 class = "text-1xl font-bold mt-0 mb-2 text-center">Create New Card</h3>
+                <label>Card Name:
+                <input type="text" value="", class = "border-2 my-3">
+                </label>
+                <h3 class = "text-1xl font-bold mt-0 text-center">Select Background Color<br>(Cannot be Changed)</h3>
+                <form method="POST" action="" class = "my-4">
+                    <div>
+                        <label>R
+                        <input type="text" value="" class = "border-2">
+                        </label>
+                    </div>
+                    <div>
+                        <label>G
+                        <input type="text" value="" class = "border-2">
+                        </label>
+                    </div>
+                    <div>
+                        <label>B
+                        <input type="text"  value="" class = "border-2">
+                        </label>
+                    </div>
+                </form>
+                <button class = "bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Start!</button>
+                <h3 id = 'startError'><h3>
+            </div>
+        </div>
+    </div>
+
+    <div id = "cardEditor" class = "border-2 bg-zinc-400 hidden text-center">
+        <h2 class = "text-2xl font-bold mt-0 mb-6 text-center"></h2>
+        <div class = "flex justify-center text-center">
+            <canvas id = "editedCard" width = "300" height = "500" class = "border-2"></canvas>
+            <div id = "shapeEditor" style = "width: 304px;height:504px" class = "border-2 bg-zinc-400 p-1" >
+                <h3>Add a Shape!</h3>
+                <form method="POST" action=""3>
+                    <label>Shape
+                    <select>
+                        <option>Square</option>
+                        <option>Triangle</option>
+                        <option>Circle</option>
+                    </select>
+                    </label>
+                    <div>
+                        <label>R
+                        <input type="text" value="" required>
+                        </label>
+                    </div>
+                    <div>
+                        <label>G
+                        <input type="text" value="" required>
+                        </label>
+                    </div>
+                    <div>
+                        <label>B
+                        <input type="text" value="" required>
+                        </label>
+                    </div>
+                
+                    <div>
+                        <label>X:
+                        <input type="text" value="" required>
+                        </label>
+                    </div>
+                    <div>
+                        <label>Y:
+                            <input type="text" value="" required>
+                        </label>
+                    </div>
+                    <input type="submit" value="Add" class = "submit bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                    <h3 id = 'shapeError'><h3>
+                </form>
+            </div>
+        </div>
+        <button class = "submit bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 mt-3 rounded">Return</button>
     </div>
 </body>
-<script type="module" src="scripts/cards.js"></script>
+<script type="text/javascript" src="scripts/cards.js"></script>
+<script type="text/javascript" src="scripts/main.js"></script>
 </html>
