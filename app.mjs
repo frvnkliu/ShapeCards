@@ -69,7 +69,7 @@ app.get('/register', (req,res)=>{
 app.post('/register', (req,res)=>{
     //Registers user using passport
     User.register({ username: req.body.username, active: false }, req.body.password, (err)=>{
-        if(err.name !== 'UserExistsError') res.redirect('/register');
+        if(err && (err.name !== 'UserExistsError')) res.redirect('/register');
         else res.redirect('/login');
     });
 });

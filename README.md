@@ -21,9 +21,7 @@ An Example User:
 ```javascript
 {
   username: "bobRoss",
-  hash: // a password hash,
-  Cards: // an array of references to card documents
-  profilePicIndex: //index of card to be used as profile picture
+  password: // a password hash,
 }
 ```
 
@@ -33,11 +31,11 @@ An Example Card with Embedded Shapes:
 {
   userId: // a reference to a User object
   name: "Design 1",
-  background-color: "white",
+  background-color: {r: "127", g: "127", b: "127"},
   //colors are in hex
   shapes: [
-    { type: "square", color: "000000", size: "30", pos: {x: "50", y: "50"}},
-    { type: "circle", color: "0F3A5C", size: "17" , pos: {x: "20", y: "70"}},
+    { type: "square", pos: {x: "50", y: "50"}, color: {r: "127", g: "127", b: "127"}},
+    { type: "circle", pos: {x: "20", y: "70"}, color: {r: "127", g: "127", b: "127"}},
   ],
   createdAt: // timestamp
 }
