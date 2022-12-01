@@ -7,7 +7,7 @@ function drawShape(shape, ctx){
     const size = shape.size??20;
     switch(shape.type){
         case 'Square':
-            ctx.fillRect(shape.pos.x-size/2, shape.pos.y-size, size, size);
+            ctx.fillRect(shape.pos.x-size/2, shape.pos.y-size/2, size, size);
             break;
         case 'Circle':
             ctx.beginPath();
