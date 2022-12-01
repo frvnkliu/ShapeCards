@@ -6,11 +6,13 @@ The content below is an example project proposal / requirements document. Replac
 
 Can't seem to remember your favorite color and shapes? Want to create and save a cool graphic?
 
-ShapeEditor is a web app that will allow users to create cards filled with their favorite shape and color. Users can register and login. Once they're logged in, they can modify their favorite drawing by adding multiple shapes and colors, along with it's size and position.
+ShapeEditor is a web app that will allow users to create cards filled with their favorite shape and color. Users can register and login. Once they're logged in, they can modify their favorite drawing by adding multiple shapes and colors, along with its position.
+
+ShapeEditor is like the new Photoshop, except you can't change the background color, can't edit previously added shapes, or upload images to edit.
 
 ## Data Model
 
-The application will store Users, Cards and Items
+The application will store Users and Cards
 
 * users can have multiple cards (via references)
 * each card can have multiple shapes (by embedding)

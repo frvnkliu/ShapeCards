@@ -7,8 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <h1 class = "text-5xl font-bold mt-2 mb-2 text-center ">Shape Cards</h1>
-
+    <div class = "text-center  mt-2 mb-2">
+        <a href = "/" class = "text-5xl font-bold hover:text-violet-600">Shape Cards</a>
+    </div>
 
     <div class = "text-center">
         <a href = "/logout" class = "text-1xl font-bold mt-2 mb-2 text-center hover:text-red-700 underline">Logout</a><br>
@@ -19,23 +20,23 @@
             <div id = "newCardForm" class="text-center border-2 mx-2 my-2" style = "width: 300px;height:500px">
                 <h3 class = "text-1xl font-bold mt-0 mb-2 text-center">Create New Card</h3>
                 <label>Card Name:
-                <input type="text" value="", class = "border-2 my-3">
+                <input type="text" , class = "border-2 my-3">
                 </label>
                 <h3 class = "text-1xl font-bold mt-0 text-center">Select Background Color<br>(Cannot be Changed)</h3>
                 <form method="POST" action="" class = "my-4">
                     <div>
-                        <label>R
-                        <input type="text" value="" class = "border-2">
+                        <label>R:
+                        <input type="text" class = "border-2">
                         </label>
                     </div>
                     <div>
-                        <label>G
-                        <input type="text" value="" class = "border-2">
+                        <label>G:
+                        <input type="text" class = "border-2">
                         </label>
                     </div>
                     <div>
-                        <label>B
-                        <input type="text"  value="" class = "border-2">
+                        <label>B:
+                        <input type="text" class = "border-2">
                         </label>
                     </div>
                 </form>
@@ -50,39 +51,43 @@
         <div class = "flex justify-center text-center">
             <canvas id = "editedCard" width = "300" height = "500" class = "border-2"></canvas>
             <div id = "shapeEditor" style = "width: 304px;height:504px" class = "border-2 bg-zinc-400 p-1" >
-                <h3>Add a Shape!</h3>
-                <form method="POST" action=""3>
-                    <label>Shape
-                    <select>
+                <h3 class = "text-1xl font-bold mb-2">Add a Shape!</h3>
+                <form method="POST" action="" class = "pr-10  text-right">
+                    <label>Shape: 
+                    <select class = "border-2">
                         <option>Square</option>
                         <option>Triangle</option>
                         <option>Circle</option>
                     </select>
                     </label>
                     <div>
-                        <label>R
-                        <input type="text" value="" required>
+                        <label>R: 
+                        <input type="text" required class = "border-2">
                         </label>
                     </div>
                     <div>
-                        <label>G
-                        <input type="text" value="" required>
+                        <label>G: 
+                        <input type="text" required class = "border-2">
                         </label>
                     </div>
                     <div>
-                        <label>B
-                        <input type="text" value="" required>
-                        </label>
-                    </div>
-                
-                    <div>
-                        <label>X:
-                        <input type="text" value="" required>
+                        <label>B: 
+                        <input type="text" required class = "border-2">
                         </label>
                     </div>
                     <div>
-                        <label>Y:
-                            <input type="text" value="" required>
+                        <label>X: 
+                        <input type="text" required class = "border-2">
+                        </label>
+                    </div>
+                    <div>
+                        <label>Y: 
+                            <input type="text" required class = "border-2">
+                        </label>
+                    </div>
+                    <div>
+                        <label>Size: 
+                            <input type="text" required class = "border-2">
                         </label>
                     </div>
                     <input type="submit" value="Add" class = "submit bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">

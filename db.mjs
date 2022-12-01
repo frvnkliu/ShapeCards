@@ -36,7 +36,8 @@ const colorSchema = new mongoose.Schema({
 const ShapeSchema = new mongoose.Schema({
     type: String,
     pos: {x: Number, y: Number},
-    color: colorSchema
+    color: colorSchema,
+    size: Number
 });
 
 const CardSchema = new mongoose.Schema({

@@ -140,18 +140,17 @@ shapeButton.addEventListener('click', function(event){
     const formValues = [this.parentElement.querySelector('select'),...this.parentElement.querySelectorAll('input')].map(x=>x.value);
     //Validation of Form Input
     console.log(formValues);
-    console.log(formValues.slice(1,6));
-    if(formValues.slice(1,6).every((x) => !isNaN(x))){
-        const shape = {type: formValues[0], color: {r: formValues[1]%256, g: formValues[2]%256, b: formValues[3]%256}, pos: {x: formValues[4], y: formValues[5]}};
-        if(shape.pos.x < -20 || shape.pos.x >= 300){
-            document.getElementById('shapeError').innerHTML = `Invalid x value: ${shape.pos.x}<br>(Must be >-20  and <300)`
+    console.log(formValues.slice(1,7));
+    if(formValues.slice(1,7).every((x) => !isNaN(x))){
+        const shape = {type: formValues[0], color: {r: formValues[1]%256, g: formValues[2]%256, b: formValues[3]%256}, pos: {x: formValues[4], y: formValues[5]}, size: Math.max(formValues[6], 100)};
+        if(shape.pos.x <0 || shape.pos.x > 300){
+            document.getElementById('shapeError').innerHTML = `Invalid x value: ${shape.pos.x}<br>(0≤x≤300)`
             return;
         }
-        if(shape.pos.y < -20 || shape.pos.y >= 500){
-            document.getElementById('shapeError').innerHTML = `Invalid y value: ${shape.pos.y}<br>(Must be >-20  and <500)`
+        if(shape.pos.y < 0 || shape.pos.y > 500){
+            document.getElementById('shapeError').innerHTML = `Invalid y value: ${shape.pos.y}<br>(0≤y≤500)`
             return;
         }
-
         //AJAX Post request to API that adds shape to the current card
         document.getElementById('shapeError').innerHTML = "";
         drawShape(shape, ctx);
