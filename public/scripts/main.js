@@ -139,10 +139,8 @@ shapeButton.addEventListener('click', function(event){
     event.preventDefault();
     const formValues = [this.parentElement.querySelector('select'),...this.parentElement.querySelectorAll('input')].map(x=>x.value);
     //Validation of Form Input
-    console.log(formValues);
-    console.log(formValues.slice(1,7));
     if(formValues.slice(1,7).every((x) => !isNaN(x))){
-        const shape = {type: formValues[0], color: {r: formValues[1]%256, g: formValues[2]%256, b: formValues[3]%256}, pos: {x: formValues[4], y: formValues[5]}, size: Math.max(formValues[6], 100)};
+        const shape = {type: formValues[0], color: {r: formValues[1]%256, g: formValues[2]%256, b: formValues[3]%256}, pos: {x: formValues[4], y: formValues[5]}, size: Math.min(formValues[6], 1000)};
         if(shape.pos.x <0 || shape.pos.x > 300){
             document.getElementById('shapeError').innerHTML = `Invalid x value: ${shape.pos.x}<br>(0≤x≤300)`
             return;
