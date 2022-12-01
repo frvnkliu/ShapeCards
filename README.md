@@ -80,7 +80,7 @@ Card Editor
     * I'm going to be using passport for user authentication
     * You can simply register a new account
     * See http://linserv1.cims.nyu.edu:21207/register for registration page
-    * http://linserv1.cims.nyu.edu:21207/login for login page
+    * See http://linserv1.cims.nyu.edu:21207/login for login page
 * (3 points) Canvas API
     * HTML/Javascript to actually create the cards using the canvas library
 * (2 points) Tailwind
