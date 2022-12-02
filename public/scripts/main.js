@@ -67,7 +67,8 @@ function getCards(){
                 cardDiv.classList.add('mx-2');
                 cardDiv.classList.add('my-2');
                 const cardCanvas = document.createElement('canvas');
-                cardCanvas.classList.add('block');
+                //cardCanvas.classList.add('block');
+                cardCanvas.className = 'block border-2';
                 cardCanvas.width = "300";
                 cardCanvas.height = "500";
                 const label = document.createElement('p');
