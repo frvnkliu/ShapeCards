@@ -4,11 +4,13 @@ const startButton = document.querySelector('button');
 const returnButton = document.querySelector('#cardEditor>button');
 const canvas = document.getElementById('editedCard');
 const ctx = canvas.getContext("2d");
+const preview = document.getElementById('preview');
+const pctx = preview.getContext("2d");
 const cards = document.getElementById('cards');
 const editor = document.getElementById('cardEditor');
-const newCardForm = document.getElementById('newCardForm');
+const cardForm = document.getElementById('newCardForm');
+const shapeForm = document.getElementById('shapeForm');
 let name;
-
 
 function editButtonClick(event){
     //Creates an AJAX get request to the card and rerenders it in the editor
@@ -92,17 +94,20 @@ function getCards(){
 
 startButton.addEventListener('click', function(event){
     //Run AJAX create Card
-    name = this.parentElement.querySelector('input').value;
+    name = cardForm.querySelector('input').value;
     if(!name){
         document.getElementById('startError').innerHTML = `Name cannot be empty!`;
         return;
     } 
     //Input Validation
-    const formValues = [...this.parentElement.querySelectorAll('form input')].map(x=>x.value);
-    let valid = true;
+    const formValues = [...cardForm.querySelectorAll('form input')].map(x=>x.value);
     for(const x of formValues){
         if(!x){
             document.getElementById('startError').innerHTML = `RGB Values are Required!`;
+            return;
+        }
+        if(isNaN(x)){
+            document.getElementById('startError').innerHTML = `Invalid RGB value: ${x} (Must be a number)`;
             return;
         }
         if(x < 0 || x > 255){
@@ -137,7 +142,7 @@ startButton.addEventListener('click', function(event){
 
 shapeButton.addEventListener('click', function(event){
     event.preventDefault();
-    const formValues = [this.parentElement.querySelector('select'),...this.parentElement.querySelectorAll('input')].map(x=>x.value);
+    const formValues = [shapeForm.querySelector('select'),...shapeForm.querySelectorAll('input')].map(x=>x.value);
     //Validation of Form Input
     if(formValues.slice(1,7).every((x) => !isNaN(x))){
         const shape = {type: formValues[0], color: {r: formValues[1]%256, g: formValues[2]%256, b: formValues[3]%256}, pos: {x: formValues[4], y: formValues[5]}, size: Math.min(formValues[6], 1000)};
@@ -156,10 +161,51 @@ shapeButton.addEventListener('click', function(event){
         req.open('POST', '/api/shape', true);
         req.setRequestHeader('Content-Type', "application/json;charset=UTF-8");
         req.send(JSON.stringify({cardName: name, shape: shape}));
+        clearCanvas(pctx);
     }else{
         document.getElementById('shapeError').innerHTML = `Invalid input (Values must be Integers)`;
     }
 });
+
+function previewBackground(){
+    //validate colors
+    const formValues = [...cardForm.querySelectorAll('form input')].map(x=>x.value);
+    for(const x of formValues){
+        if(!x){
+            return;
+        }
+        if(x < 0 || x > 255){
+            return;
+        }
+        if(isNaN(x)){
+            return;
+        }
+    }
+    const [r,g,b] = formValues;
+    cardForm.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+}
+
+cardForm.querySelectorAll('form input').forEach(x => x.addEventListener('input', previewBackground));
+
+function previewShape(){
+    const formValues = [shapeForm.querySelector('select'),...shapeForm.querySelectorAll('input')].map(x=>x.value);
+    //Validation of Form Input
+    if(formValues.slice(1,7).every((x) => !isNaN(x))){
+        const shape = {type: formValues[0], color: {r: formValues[1]%256, g: formValues[2]%256, b: formValues[3]%256}, pos: {x: formValues[4], y: formValues[5]}, size: Math.min(formValues[6], 1000)};
+        if(shape.pos.x <0 || shape.pos.x > 300){
+            return;
+        }
+        if(shape.pos.y < 0 || shape.pos.y > 500){
+            return;
+        }
+        //AJAX Post request to API that adds shape to the current card
+        document.getElementById('shapeError').innerHTML = "";
+        drawShapePreview(shape, pctx);
+    }
+};
+
+shapeForm.querySelector('select').addEventListener('input', previewShape);
+shapeForm.querySelectorAll('input').forEach(x => x.addEventListener('input', previewShape));
 
 returnButton.addEventListener('click', function(event){
     cards.classList.remove('hidden');
