@@ -11,6 +11,8 @@ function drawShapePreview(shape, ctx){
     ctx.strokeStyle = `rgb(${(100+shape.color.r)%256}, ${(100+shape.color.g)%256}, ${(100+shape.color.b)%256})`;
     ctx.setLineDash([Math.min(Math.ceil(size/10), 15), Math.min(Math.floor(size/10), 15)]);
     
+    shape.pos.x= +shape.pos.x;
+    shape.pos.y= +shape.pos.y;
     ctx.beginPath();
     switch(shape.type){
         case 'Square':
@@ -20,10 +22,18 @@ function drawShapePreview(shape, ctx){
             ctx.arc(shape.pos.x, shape.pos.y, size/2, 0, 2 * Math.PI);
             break;
         case 'Triangle':
-            ctx.moveTo(shape.pos.x, shape.pos.y);
-            ctx.lineTo(+shape.pos.x + size, shape.pos.y);
-            ctx.lineTo(shape.pos.x, +shape.pos.y +size);
+            const h = size*Math.sqrt(3)/2;
+            ctx.moveTo(shape.pos.x-size/2, shape.pos.y+h/3);
+            ctx.lineTo(shape.pos.x + size/2, shape.pos.y+h/3);
+            ctx.lineTo(shape.pos.x, shape.pos.y-2*h/3);
+            ctx.lineTo(shape.pos.x-size/2, shape.pos.y+h/3);
             break;
+        case 'Diamond':
+            ctx.moveTo(shape.pos.x-size/2, shape.pos.y);
+            ctx.lineTo(shape.pos.x, shape.pos.y+size/2);
+            ctx.lineTo(shape.pos.x+size/2, shape.pos.y);
+            ctx.lineTo(shape.pos.x, shape.pos.y-size/2);
+            ctx.lineTo(shape.pos.x-size/2, shape.pos.y);
     }
     ctx.fill();
     ctx.stroke();
@@ -34,24 +44,32 @@ function drawShapePreview(shape, ctx){
 function drawShape(shape, ctx){
     ctx.fillStyle = `rgb(${shape.color.r}, ${shape.color.g}, ${shape.color.b})`;
     //Determine which shape to draw
+    shape.pos.x= +shape.pos.x;3
+    shape.pos.y= +shape.pos.y;
     const size = shape.size??20;
+    ctx.beginPath();
     switch(shape.type){
         case 'Square':
-            ctx.fillRect(shape.pos.x-size/2, shape.pos.y-size/2, size, size);
+            ctx.rect(shape.pos.x-size/2, shape.pos.y-size/2, size, size);
             break;
         case 'Circle':
-            ctx.beginPath();
             ctx.arc(shape.pos.x, shape.pos.y, size/2, 0, 2 * Math.PI);
-            ctx.fill();
             break;
         case 'Triangle':
-            ctx.beginPath();
-            ctx.moveTo(shape.pos.x, shape.pos.y);
-            ctx.lineTo(+shape.pos.x + size, shape.pos.y);
-            ctx.lineTo(shape.pos.x, +shape.pos.y +size);
-            ctx.fill();
+            const h = size*Math.sqrt(3)/2;
+            ctx.moveTo(shape.pos.x-size/2, shape.pos.y+h/3);
+            ctx.lineTo(shape.pos.x + size/2, shape.pos.y+h/3);
+            ctx.lineTo(shape.pos.x, shape.pos.y-2*h/3);
+            ctx.lineTo(shape.pos.x-size/2, shape.pos.y+h/3);
             break;
+        case 'Diamond':
+            ctx.moveTo(shape.pos.x-size/2, shape.pos.y);
+            ctx.lineTo(shape.pos.x, shape.pos.y+size/2);
+            ctx.lineTo(shape.pos.x+size/2, shape.pos.y);
+            ctx.lineTo(shape.pos.x, shape.pos.y-size/2);
+            ctx.lineTo(shape.pos.x-size/2, shape.pos.y);
     }
+    ctx.fill();
 }
 
 //Card is the object returned by the database, canvas is the html element
