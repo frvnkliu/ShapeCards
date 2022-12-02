@@ -59,6 +59,7 @@ function getCards(){
     const req = new XMLHttpRequest();
     const url = 'api/cards';
     req.open('GET', url);
+
     req.addEventListener('load', function(evt){
         if(req.status >= 200 && req.status < 300) {
             const cardList  = JSON.parse(req.responseText); 
@@ -73,6 +74,15 @@ function getCards(){
                 cardCanvas.height = "500";
                 const label = document.createElement('p');
                 label.innerHTML = cardInfo.name;
+                const downButton = document.createElement('button');
+                downButton.className = 'bg-gray-500 hover:bg-green-500 text-white font-bold rounded py-0.5 px-1 mx-1';
+                downButton.addEventListener('click', ()=>{
+                    const link = document.createElement('a');
+                    link.download = `${cardInfo.name}.png`;
+                    link.href = cardCanvas.toDataURL()
+                    link.click();
+                });
+                downButton.innerHTML = 'Save';
                 const editButton = document.createElement('button');
                 editButton.innerHTML = "Edit Card";
                 editButton.addEventListener('click', editButtonClick);
@@ -81,8 +91,10 @@ function getCards(){
                 delButton.innerHTML = "X";
                 delButton.className = 'bg-red-500 hover:bg-red-700 text-white font-bold rounded py-0.5 px-2 mx-1'
                 delButton.addEventListener('click', deleteCard);
+
                 cardDiv.append(cardCanvas);
                 cardDiv.append(label);
+                cardDiv.append(downButton);
                 cardDiv.append(editButton);
                 cardDiv.append(delButton);
                 cards.append(cardDiv);
