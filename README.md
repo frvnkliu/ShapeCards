@@ -76,14 +76,14 @@ Card Editor
 5. as a user, I can delete an existing card
 
 ## Research Topics
-* (5 points) Integrate user authentication
+* Integrate user authentication
     * I'm going to be using passport for user authentication
     * You can simply register a new account
     * See https://linserv1.cims.nyu.edu:20000/register for registration page
     * See https://linserv1.cims.nyu.edu:20000/login for login page
-* (3 points) Canvas API
+* Canvas API
     * HTML/Javascript to actually create the cards using the canvas library
-* (2 points) Tailwind
+* Tailwind
     * CSS framwework
     
 10 points total out of 8 required points
@@ -93,7 +93,6 @@ Card Editor
 
 ## Annotations / References Used
 
-(__TODO__: list any tutorials/references/etc. that you've based your code off of)
 
 1. [passport.js authentication docs](http://passportjs.org/docs)
 3. [passport.js express tutorial](https://heynode.com/tutorial/authenticate-users-node-expressjs-and-passportjs/)
