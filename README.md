@@ -85,9 +85,6 @@ Card Editor
     * HTML/Javascript to actually create the cards using the canvas library
 * Tailwind
     * CSS framwework
-    
-10 points total out of 8 required points
-
 
 ## [Link to Main Project Server File](app.mjs) 
 
