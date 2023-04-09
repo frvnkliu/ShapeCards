@@ -92,10 +92,14 @@ app.post('/api/shape', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
             card.save(function(err){
                 if(err){
                     console.log(err);
+                    
+                }else{
+                    res.status(200).send('Okay');
                 }
             });
         }else{
             console.log("Not Found");
+            res.status(404).send('Card Not Found');
         }
     });
 });
