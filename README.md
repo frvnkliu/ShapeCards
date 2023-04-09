@@ -1,5 +1,5 @@
 # ShapeCards
-### Hosted on: https://linserv1.cims.nyu.edu:20000
+### Hosted at: http://3.82.120.206/
 ## Overview
 
 Can't seem to remember your favorite color and shapes? Want to create and save a cool graphic?
