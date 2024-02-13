@@ -1,5 +1,5 @@
 # ShapeCards
-### Hosted at: http://3.82.120.206/
+### Hosted at: http://44.216.27.242/
 ## Overview
 
 Can't seem to remember your favorite color and shapes? Want to create and save a cool graphic?
